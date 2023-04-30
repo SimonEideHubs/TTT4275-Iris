@@ -34,7 +34,7 @@ def train_model(iterations, alpha, training_data, n_features, g_k, weights, n_xt
         return weights, errors
 
 
-@jit(target_backend='cuda', nopython=True)
+# @jit(target_backend='cuda', nopython=True)
 def train_once(weights, training_data, grad_W_MSE, MSE_list, row_holder, g_k, n_xtra_rows):
     for j, row in enumerate(training_data):
         row = np.append(row, [1]*n_xtra_rows)
@@ -53,7 +53,7 @@ def train_once(weights, training_data, grad_W_MSE, MSE_list, row_holder, g_k, n_
 
 
 # A rather simle method of determining if the error is actually converging for the current alpha
-@jit(target_backend='cuda', nopython=True)
+# @jit(target_backend='cuda', nopython=True)
 def check_convergence(errors, error):
     typed_errors = numba.typed.List()
     [typed_errors.append(x) for x in errors]
@@ -93,7 +93,7 @@ def test_model(test, weights, confusion_matrix, n_xtra_rows):
     return confusion_matrix
 
 
-@jit(target_backend='cuda', nopython=True)
+# @jit(target_backend='cuda', nopython=True)
 def multiply_matrix(A, B, whodis):
     r = len(A)
     c = len(B[0])
